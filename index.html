@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCA AI-1 Student Result Finder</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="nav-content">
+                <h2 class="app-title">📚 BCA AI-1 Result Portal</h2>
+                <span class="version">v1.0</span>
+            </div>
+        </nav>
+
+        <div class="header">
+            <h1>🎓 Student Result Finder</h1>
+            <p>BCA AI-1 Batch - Academic Results & Information Portal</p>
+        </div>
+
+        <div class="search-section">
+            <div class="search-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input 
+                    type="text" 
+                    id="studentInput" 
+                    class="search-input" 
+                    placeholder="Enter Student Name or Roll Number..."
+                    autocomplete="off"
+                >
+                <button onclick="searchResult()" class="search-btn">
+                    <i class="fas fa-magnifying-glass"></i> Search
+                </button>
+            </div>
+            <button class="upload-btn" onclick="loadPDFData()">
+                <i class="fas fa-upload"></i> Load PDF Data
+            </button>
+        </div>
+
+        <!-- Result Container -->
+        <div id="resultContainer" class="result-container hidden">
+            <div class="result-card">
+                <div class="result-header">
+                    <h2 id="studentName">Student Name</h2>
+                    <span class="batch-badge">BCA AI-1</span>
+                </div>
+                <div class="result-details">
+                    <div class="detail-row">
+                        <div class="detail-item">
+                            <label>Roll Number</label>
+                            <span id="rollNumber">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Enrollment Number</label>
+                            <span id="enrollmentNumber">-</span>
+                        </div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-item">
+                            <label>Father's Name</label>
+                            <span id="fatherName">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Contact</label>
+                            <span id="contact">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Section with Coming Soon -->
+                <div class="results-section">
+                    <h3>📊 Examination Results</h3>
+                    <div class="coming-soon-badge">
+                        <i class="fas fa-hourglass-end"></i> Coming Soon
+                    </div>
+                    <p class="coming-soon-text">Detailed results and marks will be available shortly.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- No Result Message -->
+        <div id="noResultMsg" class="no-result hidden">
+            <p>❌ No results found. Please check the name or roll number.</p>
+        </div>
+
+        <!-- Student Profile Modal -->
+        <div id="profileModal" class="modal hidden">
+            <div class="modal-overlay" onclick="closeProfile()"></div>
+            <div class="modal-content">
+                <button class="close-modal" onclick="closeProfile()">×</button>
+                <div class="profile-container">
+                    <div class="profile-header">
+                        <div class="profile-photo">
+                            <img id="profilePhoto" src="" alt="Student Photo">
+                        </div>
+                        <div class="profile-basic-info">
+                            <h2 id="profileName"></h2>
+                            <p class="roll-info"><strong>Roll Number:</strong> <span id="profileRoll"></span></p>
+                            <span class="status-badge">Active</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-details-grid">
+                        <div class="profile-detail-card">
+                            <label>Enrollment Number</label>
+                            <span id="profileEnrollment"></span>
+                        </div>
+                        <div class="profile-detail-card">
+                            <label>Father's Name</label>
+                            <span id="profileFatherName"></span>
+                        </div>
+                        <div class="profile-detail-card">
+                            <label>Contact Number</label>
+                            <span id="profileContact"></span>
+                        </div>
+                        <div class="profile-detail-card">
+                            <label>Batch</label>
+                            <span id="profileBatch"></span>
+                        </div>
+                        <div class="profile-detail-card">
+                            <label>Department</label>
+                            <span id="profileDept"></span>
+                        </div>
+                        <div class="profile-detail-card">
+                            <label>Status</label>
+                            <span id="profileStatus"></span>
+                        </div>
+                    </div>
+
+                    <div class="profile-results-section">
+                        <h3>📊 Examination Results</h3>
+                        <div class="coming-soon-badge">
+                            <i class="fas fa-hourglass-end"></i> Coming Soon
+                        </div>
+                        <p class="coming-soon-text">Detailed results and marks will be available shortly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Developer Contact Section -->
+        <div class="contact-section">
+            <h3>👨‍💻 Developer Information</h3>
+            <div class="developer-info">
+                <div class="dev-card">
+                    <p><strong>Developer Name:</strong> Ayush Kumar</p>
+                    <p><strong>Branch:</strong> BCA AI-1</p>
+                    <p><strong>Role:</strong> Full Stack Developer</p>
+                    <p style="margin-top: 15px;"><strong>Get in Touch:</strong></p>
+                    <div class="social-links">
+                        <a href="https://instagram.com/eathical_coder" target="_blank" class="social-btn instagram" title="Follow on Instagram">
+                            <i class="fab fa-instagram"></i> Instagram
+                        </a>
+                        <a href="mailto:ayushk19024@gmail.com" class="social-btn email" title="Send Email">
+                            <i class="fas fa-envelope"></i> Email
+                        </a>
+                        <a href="https://github.com/ayush19024" target="_blank" class="social-btn github" title="View GitHub">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 BCA AI-1 Student Result Portal | Created by Ayush Kumar | <a href="https://instagram.com/eathical_coder">@eathical_coder</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
